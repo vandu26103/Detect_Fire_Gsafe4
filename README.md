@@ -22,3 +22,5 @@ Gsafe4 là hệ thống tủ trung tâm phát hiện cháy thông minh, hỗ tr�
   - Ưu tiên sử dụng WiFi.
   - Tự động chuyển sang 4G nếu WiFi mất kết nối.
 - **RF** để đóng mở còi báo động.
+
+[Sản phẩm](https://drive.google.com/drive/folders/13iAudCnwl4yyChVXJk1LQSURCTpbq7Em?usp=sharing)
