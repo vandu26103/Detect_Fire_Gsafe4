@@ -1,0 +1,122 @@
+C51 COMPILER V9.60.7.0   UART2                                                             04/09/2025 15:05:59 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE UART2
+OBJECT MODULE PLACED IN .\Output\uart2.obj
+COMPILER INVOKED BY: C:\Users\Admin\AppData\Local\Keil_v5\C51\BIN\C51.EXE ..\..\..\..\Library\StdDriver\src\uart2.c LARG
+                    -E OMF2 OPTIMIZE(7,SPEED) BROWSE INCDIR(..\..\..\..\Library\Device\Include;..\..\..\..\Library\StdDriver\inc) DEBUG PRINT
+                    -(.\lst\uart2.lst) TABS(2) OBJECT(.\Output\uart2.obj)
+
+line level    source
+
+   1          /*--------------------------------------------------------------------------------------------------------
+             --*/
+   2          /*                                                                                                        
+             - */
+   3          /* SPDX-License-Identifier: Apache-2.0                                                                    
+             - */
+   4          /* Copyright(c) 2020 Nuvoton Technology Corp. All rights reserved.                                        
+             - */
+   5          /*                                                                                                        
+             - */
+   6          /*--------------------------------------------------------------------------------------------------------
+             --*/
+   7          #include "ms51_32k.h"
+   8          
+   9          unsigned char uart2rvbuffer;
+  10          BIT uart2rvflag;
+  11          
+  12          /**
+  13           * @brief       SC0 interrupt vector demo
+  14           * @param       None
+  15           * @return      None
+  16           * @details     Store receive data.
+  17           */
+  18          #if 0
+              void SC0_ISR(void) interrupt 21          // Vector @  0x9B
+              {
+                  PUSH_SFRS;
+               /* Since only enable receive interrupt, not add flag check */
+                      SFRS = 2;
+                      uart2rvflag = 1;
+                      uart2rvbuffer = SC0DR;
+              
+                  POP_SFRS;
+              }
+              #endif
+  30          /**
+  31           * @brief       UART2 transfer data without interrupt 
+  32           * @param       u32SysClock , define Fsys value(value)
+  33           * @param       u32Baudrate, Define baudrate (value)
+  34           * @return      none
+  35           * @details     none
+  36           * @example:    UART2_Open(24000000,115200)
+  37           */ 
+  38          void UART2_Open(unsigned long u32SysClock, unsigned long u32Baudrate)
+  39          {
+  40   1          set_SC0CR0_SCEN;         /* Enable SC module */
+  41   1          set_SC0CR1_UARTEN;       /* set as UART mode */
+  42   1          set_SC0CR1_CLKKEEP;      
+  43   1          clr_SC0CR0_CONSEL;       /* clr CONSEL and AUTOCEN*/
+  44   1          clr_SC0CR0_AUTOCEN;
+  45   1       
+  46   1          SC0ETURD0 = LOBYTE((u32SysClock/8/u32Baudrate)-1);  /* define baud rate low byte */
+  47   1          SC0ETURD1 &= 0xF0;                                /* define baud rate high byte */
+C51 COMPILER V9.60.7.0   UART2                                                             04/09/2025 15:05:59 PAGE 2   
+
+  48   1          SC0ETURD1 |= (HIBYTE(u32SysClock/8/u32Baudrate-1))&0x0F; 
+  49   1          set_SC0CR1_PBOFF;     //parity bit disable
+  50   1          SC0CR1&=0xCF;        //datalegth 8bit
+  51   1          set_SC0CR0_NSB;      //stop bit = 1bit
+  52   1      }
+  53          
+  54          /**
+  55           * @brief       UART2 receive data without interrupt 
+  56           * @param       baudrate value
+  57           * @return      received data
+  58           * @details     none
+  59           * @example:    temp = UART2_Receive_Data()
+  60           */ 
+  61          unsigned char UART2_Receive_One_Byte()
+  62          {
+  63   1          unsigned char c;
+  64   1          clr_SC0CR0_RXOFF;
+  65   1          while(SC0TSR&SET_BIT1);
+  66   1          c = SC0DR;
+  67   1          return (c);
+  68   1      }
+  69          
+  70          /**
+  71           * @brief       UART2 transfer data without interrupt 
+  72           * @param       baudrate value
+  73           * @return      none
+  74           * @details     none
+  75           * @example:    UART2_Send_Data(0x55)
+  76           */ 
+  77          void UART2_Send_Data(unsigned char c)
+  78          {
+  79   1            clr_SC0CR0_TXOFF;
+  80   1            SC0DR = c;
+  81   1            while(!(SC0TSR&SET_BIT3));
+  82   1            clr_SC0CR0_TXOFF;
+  83   1      }
+  84          
+  85          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    214    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      1       8
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      1    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

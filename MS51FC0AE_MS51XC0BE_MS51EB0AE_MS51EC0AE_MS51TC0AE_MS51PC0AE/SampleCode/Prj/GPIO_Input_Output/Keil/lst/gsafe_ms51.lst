@@ -1,0 +1,69 @@
+C51 COMPILER V9.60.7.0   GSAFE_MS51                                                        04/09/2025 16:47:39 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE GSAFE_MS51
+OBJECT MODULE PLACED IN .\Output\gsafe_ms51.obj
+COMPILER INVOKED BY: C:\Users\Admin\AppData\Local\Keil_v5\C51\BIN\C51.EXE ..\..\..\..\Library\StdDriver\src\gsafe_ms51.c
+                    - LARGE OMF2 OPTIMIZE(7,SPEED) BROWSE INCDIR(..\..\..\..\Library\Device\Include;..\..\..\..\Library\StdDriver\inc) DEBUG 
+                    -PRINT(.\lst\gsafe_ms51.lst) TABS(2) OBJECT(.\Output\gsafe_ms51.obj)
+
+line level    source
+
+   1          #include "ms51_32k.h"
+   2          
+   3          void putc_UART0(unsigned int *mang, unsigned int n){
+   4   1        unsigned int i;
+   5   1        for(i=0;i<n;i++){
+   6   2          UART_Send_Data(UART0,mang[i]);
+   7   2        }
+   8   1      }
+   9          void putc_UART1(unsigned int *mang, unsigned int n){
+  10   1        unsigned int i;
+  11   1        for(i=0;i<n;i++){
+  12   2          UART_Send_Data(UART1,mang[i]);
+  13   2        }
+  14   1      }
+  15          void putc_UART2(unsigned int *mang, unsigned int n){
+  16   1        unsigned int i;
+  17   1        for(i=0;i<n;i++){
+  18   2          UART2_Send_Data(mang[i]);
+  19   2        }
+  20   1      }
+  21          void puts_UART0(char *chuoi){
+  22   1        while(*chuoi){
+  23   2          UART_Send_Data(UART0,*chuoi);
+  24   2          chuoi++;
+  25   2        }
+  26   1      }
+  27          void puts_UART1(char *chuoi){
+  28   1        while(*chuoi){
+  29   2          UART_Send_Data(UART1,*chuoi);
+  30   2          chuoi++;
+  31   2        }
+  32   1      }
+  33          void puts_UART2(char *chuoi){
+  34   1        while(*chuoi){
+  35   2          UART2_Send_Data(*chuoi);
+  36   2          chuoi++;
+  37   2        }
+  38   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    404    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----      30
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+C51 COMPILER V9.60.7.0   GSAFE_MS51                                                        04/09/2025 16:47:39 PAGE 2   
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

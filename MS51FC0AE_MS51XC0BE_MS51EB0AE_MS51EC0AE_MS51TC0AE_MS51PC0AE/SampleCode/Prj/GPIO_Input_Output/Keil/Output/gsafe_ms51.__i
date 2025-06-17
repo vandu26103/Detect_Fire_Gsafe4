@@ -1,0 +1,1 @@
+"..\..\..\..\Library\StdDriver\src\gsafe_ms51.c" LARGE OMF2 OPTIMIZE (7,SPEED) BROWSE INCDIR(..\..\..\..\Library\Device\Include;..\..\..\..\Library\StdDriver\inc) DEBUG PRINT(.\lst\gsafe_ms51.lst) TABS (2) OBJECT(.\Output\gsafe_ms51.obj)

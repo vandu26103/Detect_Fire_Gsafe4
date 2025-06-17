@@ -1,0 +1,11 @@
+".\Output\main.obj",
+".\Output\putchar.obj",
+".\Output\sys.obj",
+".\Output\uart.obj",
+".\Output\delay.obj",
+".\Output\common.obj",
+".\Output\STARTUP.obj" 
+TO ".\Output\UART0_Printf" 
+
+PRINT(".\lst\UART0_Printf.map") DISABLEWARNING (16) 
+REMOVEUNUSED 

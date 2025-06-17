@@ -1,0 +1,12 @@
+".\Output\main.obj",
+".\Output\sys.obj",
+".\Output\delay.obj",
+".\Output\common.obj",
+".\Output\uart2.obj",
+".\Output\uart.obj",
+".\Output\timer.obj",
+".\Output\STARTUP.obj" 
+TO ".\Output\GPIO_Input_Output" 
+
+PRINT(".\lst\GPIO_Input_Output.map") DISABLEWARNING (16) 
+REMOVEUNUSED 
